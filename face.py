@@ -5,6 +5,7 @@ import numpy as np
 
 def face_point (cap):
     """
+    ドットのみを表示
     戻り値の[0]がマスク用の白黒画像
     [1]がメインの画像
     """

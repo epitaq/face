@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import time
 
-from eye import eye_point
+#from eye import eye_point
 from hand import hand_point
 from face_mask import face_point
 
@@ -11,6 +11,8 @@ from face_mask import face_point
 def movie ():
     # カメラCh.(ここでは0)を指定
     camera = cv2.VideoCapture(0)
+    #  元となる画像
+
     # 撮影＝ループ中にフレームを1枚ずつ取得（qキーで撮影終了）
     time0 = time.time()
     while True:
@@ -20,11 +22,12 @@ def movie ():
         time0 = time.time()
         # フレームを取得
         ret, img = camera.read()
+        multi_img = np.zeros_like(img)
         #  合成
-        #  eye
-        eye_result = eye_point(img)
-        eye_and = cv2.bitwise_and(img, eye_result[0])
-        multi_img = cv2.add(eye_and, eye_result[1])
+        # #  eye
+        # eye_result = eye_point(img)
+        # eye_and = cv2.bitwise_and(multi_img, eye_result[0])
+        # multi_img = cv2.add(eye_and, eye_result[1])
         #  face
         face_result = face_point(img)
         face_and = cv2.bitwise_and(multi_img, face_result[0])
