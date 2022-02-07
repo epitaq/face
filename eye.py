@@ -3,6 +3,11 @@ import mediapipe as mp
 import numpy as np
 
 def eye_point (cap):
+    """
+    face_maskに追加
+    戻り値の[0]がマスク用の白黒画像
+    [1]がメインの画像
+    """
     #  目のインデックス
     LEFT_IRIS = [474,475, 476, 477]
     RIGHT_IRIS = [469, 470, 471, 472]
@@ -53,8 +58,8 @@ def movie ():
     # 撮影＝ループ中にフレームを1枚ずつ取得（qキーで撮影終了）
     while True:
         ret, frame = camera.read()
-        frame = eye_point(frame)
-        cv2.imshow('camera', frame[1])
+        frame = eye_point(frame)[1]
+        cv2.imshow('camera', frame)
         # キー操作があればwhileループを抜ける
         if cv2.waitKey(1) & 0xFF == ord('0'):
             break
