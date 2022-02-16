@@ -62,7 +62,7 @@ def face_point (cap):
 
 
 def pic():
-    img = cv2.imread('photo.jpg')
+    img = cv2.imread('tst.jpg')
     img = face_point(img)
     cv2.imshow("img_test", img[1])
     cv2.waitKey(0)
