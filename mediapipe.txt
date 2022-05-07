@@ -1,0 +1,3 @@
+https://github.com/google/mediapipe/issues/2742
+古いバージョンの場合うまくいかない
+python==3.10以上で pip install mediapipe

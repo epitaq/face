@@ -17,7 +17,12 @@ def face_point (cap):
     LEFT_IRIS = [474,475, 476, 477]
     RIGHT_IRIS = [469, 470, 471, 472]
     mp_face_mesh = mp.solutions.face_mesh
-    with mp_face_mesh.FaceMesh(max_num_faces=1, refine_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5) as face_mesh:
+    # with mp_face_mesh.FaceMesh(max_num_faces=1, refine_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5) as face_mesh:
+    with mp_face_mesh.FaceMesh(
+    static_image_mode=True,
+    max_num_faces=1,
+    refine_landmarks=True,
+    min_detection_confidence=0.5) as face_mesh:
         rgb_frame = cv2.cvtColor(cap, cv2.COLOR_BGR2RGB)
         results = face_mesh.process(rgb_frame)
         #  サイズの取得
@@ -30,15 +35,15 @@ def face_point (cap):
             z_value = np.array([p.z for p in results.multi_face_landmarks[0].landmark])
             #  描画を黒背景にする  ##############
             cap = np.zeros_like(cap)
-            
+
             #  目の処理  ##############
-            #  目の座標 
+            #  目の座標
             (l_x, l_y), l_radius = cv2.minEnclosingCircle(mesh_points[LEFT_IRIS])
             (r_x, r_y), r_radius = cv2.minEnclosingCircle(mesh_points[RIGHT_IRIS])
             l_center = np.array([l_x, l_y], dtype=np.int32)
             r_center = np.array([r_x, r_y], dtype=np.int32)
             #描画を黒背景にする  ##########
-            #  目の描画 
+            #  目の描画
             cv2.circle(cap, center=l_center, radius=int(l_radius), color=(50,30,30), thickness=-1)
             cv2.circle(cap, center=r_center, radius=int(r_radius), color=(50,30,30), thickness=-1)
             #  目の中の座標
